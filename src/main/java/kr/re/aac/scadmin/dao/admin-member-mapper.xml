@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.re.aac.admin.dao.AdminMemberDao">
+    <sql id="allColumn">
+        t1.id,
+        t1.user_id userId,
+        <!-- t1.password decPassword, 암호화 방식 변경으로 주석처리-->
+        t1.encpassword password,
+        t1.name,
+        t1.position,
+        t1.email decEmail,
+        t1.address1,
+        t1.address2,
+        t1.zip_code zipCode,
+        t1.tel decTel,
+        t1.hp decHp,
+        t1.fax decFax,
+        t1.level,
+        t1.reg_date regDate,
+        t1.last_login_date lastLoginDate,
+        t1.login_count loginCount,
+        t1.orgYN,
+        t3.org_type orgType,
+        t3.business_number businessNumber,
+        t3.business_ceo businessCeo,
+        t3.business_name businessName,
+        t3.business_address businessAddress,
+        t3.business_cond businessCond,
+        t3.business_item businessItem,
+        t2.org_id orgId,
+        t2.org_dept_id orgDeptId, t2.deptNm, t2.deptLeader
+    </sql>
+
+    <select id="selectTotalCount" parameterType="map" resultType="int">
+      SELECT COUNT(*) FROM member t1
+        	left outer join organization_dept t2 on t1.org_dept_id = t2.org_dept_id
+        	left outer join organization t3 on t2.org_id = t3.org_id
+        <if test="search != null and search !=''">
+            where t1.name like CONCAT('%', #{search}, '%')
+            OR t1.user_id like CONCAT('%', #{search}, '%')
+        </if>
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="kr.re.aac.admin.dto.MemberDto">
+        SELECT
+          <include refid="allColumn" />
+        FROM member t1
+        	left outer join organization_dept t2 on t1.org_dept_id = t2.org_dept_id
+        	left outer join organization t3 on t2.org_id = t3.org_id
+        <if test="search != null and search !=''">
+            where name like CONCAT('%', #{search}, '%')
+            OR user_id like CONCAT('%', #{search}, '%')
+        </if>
+        ORDER BY t1.id DESC limit #{startRow}, #{endRow}
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="kr.re.aac.admin.dto.MemberDto">
+        SELECT
+            <include refid="allColumn" />
+        FROM member t1
+        	left outer join organization_dept t2 on t1.org_dept_id = t2.org_dept_id
+        	left outer join organization t3 on t2.org_id = t3.org_id
+        where t1.id = #{value}
+    </select>
+
+    <select id="selectOneUserId" parameterType="string" resultType="kr.re.aac.admin.dto.MemberDto">
+        SELECT
+        <include refid="allColumn" />
+        FROM member t1
+        	left outer join organization_dept t2 on t1.org_dept_id = t2.org_dept_id
+        	left outer join organization t3 on t2.org_id = t3.org_id
+        where t1.user_id = #{value}
+    </select>
+
+    <select id="selectOneIdPw" parameterType="map" resultType="kr.re.aac.admin.dto.MemberDto">
+        SELECT
+        <include refid="allColumn" />
+        FROM member t1
+        	left outer join organization_dept t2 on t1.org_dept_id = t2.org_dept_id
+        	left outer join organization t3 on t2.org_id = t3.org_id
+        where t1.user_id = #{userId}
+          and t1.encpassword = #{password}
+    </select> 
+    
+    <select id="selectCheckId" parameterType="string" resultType="int">
+        SELECT COUNT(*) 
+          FROM member 
+         WHERE user_id = #{userId};
+    </select>
+    
+    <select id="selectCheckPwd" parameterType="string" resultType="int">
+        SELECT COUNT(*) 
+          FROM member 
+         WHERE user_id = #{userId}
+           AND password = #{password}
+    </select>
+
+    <select id="selectUserIdCount" parameterType="string" resultType="int">
+        SELECT
+          count(*)
+        FROM member
+        where user_id = #{value}
+    </select>
+
+    <delete id="delete" parameterType="int">
+
+    </delete>
+
+    <update id="update" parameterType="kr.re.aac.admin.dto.MemberDto">
+      UPDATE member SET
+        password        = #{encShaPassword}, 
+        name            = #{name},
+        position        = #{position},
+        email           = #{encEmail},
+        address1        = #{address1},
+        address2        = #{address2},
+        zip_code        = #{zipCode},
+        tel             = #{encTel},
+        hp              = #{encHp},
+        fax             = #{encFax},
+        org_dept_id			= #{orgDeptId},
+        orgYN			= #{orgYN}
+        <if test="level != null and level !=''">
+       	, level           = #{level}
+        ,encpassword = #{encShaPassword}
+        </if>        
+      where user_id = #{userId}
+    </update>
+
+    <update id="updateLoginLog" parameterType="int">
+      UPDATE member SET
+        last_login_date = getdate(),
+        login_count = login_count + 1
+      WHERE id = #{value}
+    </update>
+
+    <insert id="insert" parameterType="kr.re.aac.admin.dto.MemberDto" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO member
+            (user_id,
+            password, 
+            name,
+            position,
+            email,
+            address1,
+            address2,
+            zip_code,
+            tel,
+            hp,
+            fax,
+            org_dept_id, 
+            orgYN,
+            encpassword)
+        VALUES
+            (#{userId},
+            #{encShaPassword}, 
+            #{name},
+            #{position},
+            #{encEmail},
+            #{address1},
+            #{address2},
+            #{zipCode},
+            #{encTel},
+            #{encHp},
+            #{encFax},
+            #{orgDeptId}, 
+            #{orgYN},
+            #{encShaPassword})
+    </insert>
+
+    <insert id="sysAdminLogInsert" parameterType="map" useGeneratedKeys="true" keyProperty="LOG_ID" keyColumn="LOG_ID">
+        INSERT INTO AAC.ADMIN_LOG 
+               (IP
+               ,LOG_DT
+               ,REG_DT
+               ,REG_ID
+               ,UDT_DT
+               ,UDT_ID
+               ,USER_ID) 
+        VALUES (#{USERIP}
+               ,getdate()
+               ,getdate()
+               ,#{USERID}
+               ,getdate()
+               ,#{USERID}
+               ,#{USERID})
+        <selectKey keyProperty="LOG_ID" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <select id="selectUserId" parameterType="map" resultType="map">
+        SELECT
+        user_id
+        FROM member
+        where name = #{name}
+        and email = #{encEmail}
+    </select>
+
+    <select id="selectUserPassword" parameterType="map" resultType="string">
+        SELECT
+          password
+        FROM member
+        where name = #{name}
+        and email = #{encEmail}
+        and user_id = #{userId}
+    </select>
+
+    <update id="updateUserLevel" parameterType="map">
+        UPDATE member SET
+        level           = #{level}
+        where user_id = #{userId}
+    </update>
+    
+    <select id="selectOrganizationList" parameterType="map" resultType="kr.re.aac.admin.dto.OrganizationDto">
+        SELECT
+        	t1.org_id orgId
+        	, t1.org_type orgType
+    		, t1.business_number businessNumber
+    		, t1.business_name businessName
+    		, t1.business_ceo businessCeo
+    		, t1.business_address businessAddress
+    		, t1.business_cond businessCond
+    		, t1.business_item businessItem
+    		, t1.businessNumberDoc
+    		, t2.org_dept_id orgDeptId
+    		, t2.deptNm
+    		, t2.deptLeader
+        FROM
+        	organization t1
+        	inner join organization_dept t2 on t1.org_id = t2.org_id
+        where
+        	t2.del_YN = 'N'
+        <if test="search != null and search !=''">
+            and t1.business_number like CONCAT('%', #{search}, '%')
+        </if>
+        ORDER BY t1.business_name ASC, t2.deptNm ASC
+    </select>
+    
+    <select id="selectBusinessNumberCount" parameterType="string" resultType="int">
+        SELECT
+          count(*)
+        FROM organization
+        where business_number = #{businessNumber}
+    </select>
+    
+    <insert id="insertOrganization" parameterType="kr.re.aac.admin.dto.OrganizationDto" useGeneratedKeys="true" keyProperty="orgId" keyColumn="org_id">
+        INSERT INTO organization
+            (org_type, business_number, business_name, business_ceo, business_address, business_cond, business_item, businessNumberDoc)
+        VALUES
+            (#{orgType}, #{businessNumber}, #{businessName}, #{businessCeo}, #{businessAddress}, #{businessCond}, #{businessItem}, #{businessNumberDoc})
+        <selectKey keyProperty="orgId" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    
+    <update id="updateOrganization" parameterType="kr.re.aac.admin.dto.OrganizationDto">
+        UPDATE
+        	organization
+        SET
+        	org_type = #{orgType}, <!-- business_number = #{businessNumber}, --> business_name = #{businessName},
+        	business_ceo = #{businessCeo}, business_address = #{businessAddress}, business_cond = #{businessCond},
+        	business_item = #{businessItem}
+        	<if test='businessNumberDoc != null and businessNumberDoc != ""'>
+        	, businessNumberDoc = #{businessNumberDoc}
+        	</if>
+        where
+        	org_id = #{orgId}
+    </update>
+    
+    <insert id="insertOrganizationDept" parameterType="kr.re.aac.admin.dto.OrganizationDto" useGeneratedKeys="true" keyProperty="orgDeptId" keyColumn="org_dept_id">
+        INSERT INTO organization_dept
+            (org_id, deptNm, deptLeader)
+        VALUES
+            (#{orgId}, #{deptNm}, #{deptLeader})
+        <selectKey keyProperty="orgDeptId" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    
+    <update id="updateOrganizationDept" parameterType="kr.re.aac.admin.dto.OrganizationDto">
+        UPDATE
+        	organization_dept
+        SET
+        	deptNm = #{deptNm}, deptLeader = #{deptLeader}
+        where
+        	org_dept_id = #{orgDeptId}
+    </update>
+    
+    <update id="deleteOrganizationDept" parameterType="kr.re.aac.admin.dto.OrganizationDto">
+        UPDATE
+        	organization_dept
+        SET
+        	del_YN = 'Y'
+        where
+        	org_dept_id = #{orgDeptId}
+    </update>
+    
+    <select id="selectOrgInfo" parameterType="string" resultType="kr.re.aac.admin.dto.OrganizationDto">
+        SELECT t1.org_id orgId, 
+		       t1.org_type orgType,  
+		       t1.business_number businessNumber, 
+		       t1.business_name businessName, 
+		       t1.business_ceo businessCeo, 
+		       t1.business_address businessAddress, 
+		       t1.business_cond businessCond, 
+		       t1.business_item businessItem, 
+		       t1.businessNumberDoc, 
+		       t2.org_dept_id orgDeptId, 
+		       t2.deptNm, 
+		       t2.deptLeader 
+		  FROM organization t1 inner join organization_dept t2 on t1.org_id = t2.org_id where t2.del_YN = 'N' and t1.org_id = (select org_id from organization_dept where org_dept_id = #{orgDeptId})
+    </select>
+    
+    <!-- 개인정보 접속기록 로그 저장(state - 01(접속), 02(게시글 입력), 03(게시글 수정), 04(게시글 삭제), 05(분석의뢰서 작성), 06(기관정보 입력), 07(기관정보 수정), 08(기관정보 삭제)) -->
+    <insert id="sysLoginsert" parameterType="map" useGeneratedKeys="true" keyProperty="LOGIN_NO" keyColumn="LOGIN_NO">
+    	<selectKey keyProperty="LOGIN_NO" resultType="String" order="BEFORE">
+            SELECT coalesce(MAX(LOGIN_NO) + 1,concat(DATE_FORMAT(getdate(), '%Y%m%d'),lpad('1',4,'0'))) AS LOGIN_NO
+  		      FROM SYS_USER_LOG
+             WHERE USERID = #{USERID}
+        </selectKey>
+        INSERT INTO SYS_USER_LOG
+            (LOGIN_NO, USERID, USERIP, DT, STATE)
+        VALUES
+            (#{LOGIN_NO}, #{USERID}, #{USERIP}, getdate(), #{STATE})
+    </insert>
+    
+    <!-- 회원관리 권한 변경시 이력 저장(state - 01(차단), 02(일반), 03(관리자)) -->
+    <insert id="authChangeLoginsert" parameterType="map">
+    	INSERT INTO SYS_USER_CHGAUTH_LOG
+    		(USERID, STATE, MODID, DT)
+    	VALUES
+    		(#{USERID}, #{STATE}, #{MODID}, getdate())	
+    </insert>
+    
+    <!-- 로그인 실패시 카운트 증가 -->
+    <update id="failCountUpdate" parameterType="map">
+        update member
+          set login_fail_count = #{FAILCNT}
+        where user_id = #{USERID} 
+    </update>
+    
+    <!-- 해당 계정 로그인 실패 카운트 조회 -->
+    <select id="getFailLoginCount" parameterType="string" resultType="int">
+        select coalesce(login_fail_count, 0) as login_fail_count
+          from member
+         where user_id = #{userid}
+    </select>
+    
+    <!-- 각 계정 및 AES방식 암호 조회 -->
+    <select id="getAESPassword" resultType="map">
+    	select user_id,
+       		   password
+  		  from member
+    </select>
+    
+    <!--ShaPasswordEncoder방식 암호 저장  -->
+    <update id="updatePasswordEnc" parameterType="map">
+        update member
+           set encpassword = #{SHAPASSWORD}
+         where user_id = #{USERID} 
+    </update>
+    
+    <!--임시패스워드 저장  -->
+    <update id="updateImsiPassword" parameterType="map">
+    	update member
+    	   set encpassword = #{IMSIPWD},
+    	       password = #{IMSIPWD},
+    	       login_fail_count = 0,
+    	       level = 'normal'
+    	 where user_id = #{USERID} 
+    </update>
+</mapper>

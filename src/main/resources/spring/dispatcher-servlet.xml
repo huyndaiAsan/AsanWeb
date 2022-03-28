@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+<!-- http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd -->
+       <mvc:annotation-driven>
+              <mvc:argument-resolvers>
+                     <bean class="kr.re.aac.common.UserInfoArgumentResolver"/>
+              </mvc:argument-resolvers>
+       </mvc:annotation-driven>
+
+       <mvc:default-servlet-handler/>
+
+       <context:component-scan base-package="kr.re.aac">
+              <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+       </context:component-scan>
+
+       <!-- 인트로 -->
+       <mvc:view-controller path="/about/about_01" view-name="main/about/about_01" />
+       <mvc:view-controller path="/about/about_0201" view-name="main/about/about_0201" />
+       <mvc:view-controller path="/about/about_0202" view-name="main/about/about_0202" />
+       <mvc:view-controller path="/about/about_0203" view-name="main/about/about_0203" />
+       <mvc:view-controller path="/about/about_03" view-name="main/about/about_03" />
+       <mvc:view-controller path="/about/about_04" view-name="main/about/about_04" />
+       <mvc:view-controller path="/about/about_0502" view-name="main/about/about_0502" />
+       <mvc:view-controller path="/about/about_0503" view-name="main/about/about_0503" />
+       <mvc:view-controller path="/about/about_0701" view-name="main/about/about_0701" />
+       <mvc:view-controller path="/about/about_0702" view-name="main/about/about_0702" />
+       <mvc:view-controller path="/about/about_0801" view-name="main/about/about_0801" />
+       <mvc:view-controller path="/about/about_0802" view-name="main/about/about_0802" />
+       <mvc:view-controller path="/about/about_0803" view-name="main/about/about_0803" />
+       <mvc:view-controller path="/about/about_0901" view-name="main/about/about_0901" />
+       <mvc:view-controller path="/about/about_0902" view-name="main/about/about_0902" />
+       <mvc:view-controller path="/about/about_0903" view-name="main/about/about_0903" />
+       <mvc:view-controller path="/about/about_0904" view-name="main/about/about_0904" />
+       <mvc:view-controller path="/tourism/tourism_0101" view-name="main/tourism/tourism_0101" />
+       <mvc:view-controller path="/tourism/tourism_0102" view-name="main/tourism/tourism_0102" />
+       <mvc:view-controller path="/tourism/tourism_0103" view-name="main/tourism/tourism_0103" />
+       <mvc:view-controller path="/tourism/tourism_0104" view-name="main/tourism/tourism_0104" />
+       <mvc:view-controller path="/tourism/tourism_0105" view-name="main/tourism/tourism_0105" />
+       <mvc:view-controller path="/tourism/tourism_0106" view-name="main/tourism/tourism_0106" />
+       <mvc:view-controller path="/tourism/tourism_0201" view-name="main/tourism/tourism_0201" />
+       <mvc:view-controller path="/tourism/tourism_0202" view-name="main/tourism/tourism_0202" />
+       <mvc:view-controller path="/tourism/tourism_0203" view-name="main/tourism/tourism_0203" />
+       <mvc:view-controller path="industry/industry_soc_0101" view-name="main/industry/industry_soc_0101" />
+       <mvc:view-controller path="industry/industry_soc_0102" view-name="main/industry/industry_soc_0102" />
+       <mvc:view-controller path="industry/industry_soc_0103" view-name="main/industry/industry_soc_0103" />
+       <mvc:view-controller path="industry/industry_soc_0104" view-name="main/industry/industry_soc_0104" />
+       <mvc:view-controller path="industry/industry_soc_0105" view-name="main/industry/industry_soc_0105" />
+       <mvc:view-controller path="industry/industry_soc_02" view-name="main/industry/industry_soc_02" />
+       <mvc:view-controller path="taxfree_oda/taxfree_oda_01" view-name="main/taxfree_oda/taxfree_oda_01" />
+       <mvc:view-controller path="taxfree_oda/taxfree_oda_02" view-name="main/taxfree_oda/taxfree_oda_02" />
+       <mvc:view-controller path="promotion/promotion_02" view-name="main/promotion/promotion_02" />
+       <mvc:view-controller path="guide/private" view-name="main/guide/private" />
+       <mvc:view-controller path="guide/popup" view-name="main/guide/popup" />
+       
+		<!-- SC 어드민 -->
+   	   <mvc:view-controller path="/scadmin/login" view-name="scadmin/view/index" />
+       <tx:annotation-driven proxy-target-class="true"/>
+       <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+       <!-- JSR-303을 위한 설정 -->
+       <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+       <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+              <property name="webBindingInitializer">
+                     <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+                            <property name="validator" ref="validator"/>
+                     </bean>
+              </property>
+       </bean>
+
+       <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+              <property name="order" value="1" />
+              <property name="contentNegotiationManager">
+                     <bean class="org.springframework.web.accept.ContentNegotiationManager">
+                            <constructor-arg>
+                                   <bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+                                          <constructor-arg>
+                                                 <map>
+                                                        <entry key="json" value="application/json" />
+                                                 </map>
+                                          </constructor-arg>
+                                   </bean>
+                            </constructor-arg>
+                     </bean>
+              </property>
+
+              <!-- <property name="defaultViews">
+                     <list><bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" /></list>
+              </property> -->
+       </bean>
+
+	   <bean id="applicationExcelDown" class="kr.re.aac.common.controller.ApplicationExcelDownController">
+		    <property name="contentType" value="application/vnd.ms-excel; charset=UTF-8"></property>
+	   </bean>
+	   
+	   <bean id="recommendExcelDown" class="kr.re.aac.common.controller.RecommendExcelDownController">
+		    <property name="contentType" value="application/vnd.ms-excel; charset=UTF-8"></property>
+	   </bean>
+	
+       <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+              <property name="order" value="1"/>
+       </bean>
+
+       <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+              <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+              <property name="order" value="2"/>
+              <property name="prefix" value="/WEB-INF/jsp/"/>
+              <property name="suffix" value=".jsp"/>
+       </bean>
+
+       <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+              <property name="maxUploadSize" value="300000000"/>
+       </bean>
+
+       <mvc:interceptors>
+              <mvc:interceptor>
+                     <mvc:mapping path="/scadmin/**/**" />
+                     <mvc:exclude-mapping path="/scadmin/login*" />
+                     <bean class="kr.re.aac.interceptors.LoginInterceptor" />
+              </mvc:interceptor>
+       </mvc:interceptors>
+</beans>

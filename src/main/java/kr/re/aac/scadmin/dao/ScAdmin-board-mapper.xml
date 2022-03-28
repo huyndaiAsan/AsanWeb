@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.re.aac.scadmin.dao.ScAdminBoardDao">
+	
+	<sql id="allColumn">
+        b.id
+        , b.title
+        , b.content
+        , CONVERT(CHAR(10), b.reg_date, 23) reg_Date
+        , b.update_date updateDate
+        , b.end_date endDate
+        , b.exposure
+        , b.read_count readCount
+        , b.category
+        , b.reg_user_id regUserId
+        , b.default_image defaultImage 
+        , b.stdt 
+        , b.endt
+        , b.ordering
+        , b.summary
+        , b.gubun
+        , b.complite
+        , b.top_mark
+    </sql>
+    
+	<sql id="getSearch">
+		
+	</sql>
+	
+    <select id="selectTotalCount" parameterType="map" resultType="int">
+        SELECT 
+        	count(*) 
+        FROM 
+        	sc_tb_board b
+        <where>
+			AND category = #{category}
+        	AND deleted = 'n'
+			<include refid="getSearch"/>
+        </where>
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+    	SELECT T.* FROM (SELECT ROWNUM RNUM, A.* FROM (  /* ProgramID=boardMapper.selectPaging */
+			SELECT 
+				row_number() over (ORDER BY reg_Date DESC) ROWNUM
+				, <include refid="allColumn" />
+		        , (select top 1 save_path from sc_tb_file where board_id = b.id ) imgFile
+			FROM sc_tb_board b
+		<where>
+			AND category = #{category}
+	        AND deleted = 'n'
+	        <include refid="getSearch"/>
+		</where>        
+
+		) A 
+		WHERE ROWNUM &lt; ((#{pageNo}-1) * #{pageUnit}) + #{pageUnit} + 1) T WHERE RNUM &gt;= ((#{pageNo}-1) * #{pageUnit}) + 1
+    </select>
+    
+    <select id="selectOne" parameterType="int" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT
+        <include refid="allColumn" />
+        FROM sc_tb_board b
+        WHERE b.id = #{value}
+          AND deleted = 'n'
+    </select>
+
+    <select id="selectNextOne" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT
+        TOP 1 
+        <include refid="allColumn" />
+        FROM sc_tb_board b
+        WHERE b.id <![CDATA[ < ]]> #{boardId}
+        and category = #{category}
+        AND deleted = 'n'
+        <include refid="getSearch"/>
+        order by id desc
+    </select>
+
+    <select id="selectPreOne" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT
+        TOP 1 
+        <include refid="allColumn" />
+        FROM sc_tb_board b
+        WHERE b.id <![CDATA[ > ]]> #{boardId}
+        and category = #{category}
+        AND deleted = 'n'
+        <include refid="getSearch"/>
+    </select>
+
+    <insert id="insert" parameterType="kr.re.aac.admin.dto.BoardDto" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO sc_tb_board(
+        	title
+        	, content
+        	, reg_date
+        	, update_date
+        	, end_date
+        	, reg_user_id
+        	, category
+        	, default_image
+        	, stdt 
+	        , endt
+	        , ordering
+	        , summary
+	        , gubun
+	        , complite
+	        , top_mark
+        )VALUES(
+        	#{title}
+        	, #{content}
+        	, convert(datetime,#{reg_Date})
+        	, getdate()
+        	, #{endDate}
+        	, #{regUserId}
+        	, #{category}
+        	, #{defaultImage}
+        	, #{stdt} 
+	        , #{endt}
+	        , #{ordering}
+	        , #{summary}
+	        , #{gubun}
+	        , #{complite}
+	        , #{fixynChk}
+        )
+    </insert>
+
+    <update id="delete" parameterType="int">
+        UPDATE sc_tb_board SET
+          deleted = 'y'
+        WHERE id = #{value}
+    </update>
+
+    <update id="update" parameterType="kr.re.aac.admin.dto.BoardDto">
+        UPDATE sc_tb_board SET
+	        title = #{title},
+	        content = #{content},
+	        update_date = getdate(),
+	        end_date = #{endDate},
+	        reg_date = convert(datetime,#{reg_Date}),
+	        default_image = #{defaultImage},
+	        stdt = #{stdt},
+	        endt = #{endt},
+	        ordering = #{ordering},
+	        summary = #{summary},
+	        complite = #{complite},
+	        gubun = #{gubun},
+	        top_mark = #{fixynChk}
+        where 
+        	id = #{id}
+    </update>
+
+    <update id="updateIncreaseRead" parameterType="int">
+        UPDATE sc_tb_board SET
+        read_count = read_count + 1
+        where id = #{value}
+    </update>
+</mapper>

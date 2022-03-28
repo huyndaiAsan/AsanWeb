@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scAdminLogin">
+
+	<sql id="getSearch">
+		
+	</sql>	
+	
+	<select id="selectCkId" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*) AS cnt
+		FROM 
+			sc_tb_manager
+		<where>
+			AND ID = #{id}
+			<include refid="getSearch"/>
+		</where>			
+	</select>
+	
+	<select id="selectCheckPwd" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*) AS cnt
+		FROM 
+			sc_tb_manager
+		<where>
+			AND ID = #{id}
+			AND PWD = #{pwd}
+			<include refid="getSearch"/>
+		</where>			
+	</select>
+	
+	<select id="selectOne" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			id
+			, nm
+			, email
+		FROM 
+			sc_tb_manager
+		<where>
+			AND ID = #{id}
+			AND PWD = #{pwd}
+			<include refid="getSearch"/>
+		</where>			
+	</select>
+	
+
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commonCodeDao">
+	
+    <select id="selectList" parameterType="hashmap" resultType="hashmap">
+        SELECT
+	        *
+        FROM 
+        	sc_tb_common_code
+        <where>
+        	AND CD LIKE CONCAT(#{cd},'%')
+        	<choose>
+        		<when test=' depth == "2" '>
+        			AND CHAR_LENGTH(CD) = 6
+        		</when>
+        		<otherwise>
+        			AND CHAR_LENGTH(CD) = 9
+        		</otherwise>
+        	</choose>
+        </where>
+        ORDER BY c_sort 
+    </select>
+    
+    <select id="selectOne" parameterType="hashmap" resultType="hashmap">
+        SELECT
+        	*
+        FROM 
+        	sc_tb_common_code
+        WHERE 
+        	CD = ${cd}
+    </select>
+
+</mapper>

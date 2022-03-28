@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.re.aac.scadmin.dao.ScAdminFileDao">
+    <insert id="insert" parameterType="kr.re.aac.admin.dto.FileDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sc_tb_file
+          (origin_name,save_path,size,download_count,reg_user_id, board_id)
+        VALUES
+          (#{originName},#{savePath},#{size},#{downloadCount},#{regUserId},#{boardId})
+    </insert>
+
+    <insert id="newInsert" parameterType="kr.re.aac.admin.dto.NewFileDto" useGeneratedKeys="true" keyProperty="fileId" >
+        INSERT INTO comm_file
+            (FILE_NM
+            ,FILE_PATH
+            ,ORG_FILE_NM
+            ,FILE_SIZE
+            ,FILE_TYPE_CD
+            ,REG_DT
+            ,REG_ID
+            ,UDT_DT
+            ,UDT_ID)
+        VALUES
+            (#{originName}
+            ,#{savePath}
+            ,#{originName}
+            ,#{size}
+            ,#{fileTypeCd}
+            ,getdate()
+            ,#{regUserId}
+            ,getdate()
+            ,#{regUserId})
+    </insert>
+
+    <update id="update" parameterType="map">
+        update sc_tb_file SET
+          board_id = #{boardId}
+        where id = #{fileId}
+    </update>
+
+    <select id="selectOne" parameterType="int" resultType="kr.re.aac.admin.dto.FileDto">
+        SELECT
+            id,
+            origin_name originName,
+            save_path savePath,
+            size,
+            download_count downloadCount,
+            reg_user_id regUserId,
+            board_id boardId
+        FROM sc_tb_file
+        where id = #{value}
+    </select>
+    
+    <!-- 뉴스레터 PDF 다운 -->
+    <select id="selectFileOne" parameterType="int" resultType="kr.re.aac.admin.dto.FileDto">
+        SELECT
+            id,
+            origin_name originName,
+            save_path savePath,
+            size,
+            download_count downloadCount,
+            reg_user_id regUserId,
+            board_id boardId
+        FROM sc_tb_file
+        where id = (SELECT pdf_file_id FROM letter_sub WHERE id = #{value})
+    </select>
+
+    <select id="selectList" parameterType="int" resultType="kr.re.aac.admin.dto.FileDto">
+        SELECT
+            id,
+            origin_name originName,
+            save_path savePath,
+            size,
+            download_count downloadCount,
+            reg_user_id regUserId,
+            board_id boardId
+        FROM sc_tb_file
+        where board_id = #{boardId}
+          and save_path like '%upload/%' 
+    </select>
+    
+    <select id="selectNewOne" parameterType="int" resultType="kr.re.aac.admin.dto.NewFileDto">
+        SELECT FILE_ID AS fileId
+              ,FILE_PATH AS savePath
+              ,ORG_FILE_NM AS originName
+          FROM comm_file
+         WHERE FILE_ID = #{fileId}
+    </select>
+    
+    <select id="selectNewEduOne" parameterType="int" resultType="kr.re.aac.admin.dto.NewFileDto">
+        SELECT FILE_ID AS fileId
+              ,FILE_PATH AS savePath
+              ,ORG_FILE_NM AS originName
+          FROM comm_file
+         WHERE FILE_ID = #{fileId}
+    </select>
+
+    <select id="selectNewList" parameterType="int" resultType="kr.re.aac.admin.dto.NewFileDto">
+        SELECT B.FILE_ID AS fileId
+              ,B.FILE_PATH AS savePath
+          FROM aac.comm_mdi_file A
+              ,aac.comm_file B
+         WHERE A.BANNER_ID = #{banner_id}
+           AND A.FILE_ID = B.FILE_ID
+           AND A.MDI_TYPE_CD IN ('P','M')
+           AND B.FILE_TYPE_CD = 'F-I'
+    </select>
+    
+    <select id="selectNewEduList" parameterType="int" resultType="kr.re.aac.admin.dto.NewFileDto">
+        SELECT B.FILE_ID AS fileId
+              ,B.FILE_PATH AS savePath
+              ,B.ORG_FILE_NM AS originName
+          FROM aac.comm_mdi_file A
+              ,aac.comm_file B
+         WHERE A.FK_ID = #{mgmtId}
+           AND A.FILE_ID = B.FILE_ID
+           AND A.MDI_TYPE_CD ='E'
+           AND B.FILE_TYPE_CD = 'F-A'
+    </select>
+    
+    <select id="selectNewListByXmrCd" parameterType="map" resultType="kr.re.aac.admin.dto.NewFileDto">
+        SELECT B.FILE_ID AS fileId
+              ,B.FILE_PATH AS savePath
+              ,B.ORG_FILE_NM AS originName
+          FROM aac.comm_mdi_file A
+              ,aac.comm_file B
+         WHERE A.XMRCD = #{xmrCd}
+           AND A.FILE_ID = B.FILE_ID
+           AND A.MDI_TYPE_CD = #{mdiTypeCd}
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM sc_tb_file
+        WHERE id = #{value}
+    </delete>
+
+    <delete id="newDelete" parameterType="int">
+        DELETE FROM comm_file
+        WHERE file_id = #{fileId}
+    </delete>
+    
+    <insert id="fileInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
+    	INSERT INTO sc_tb_file(
+    		origin_name
+    		, save_path
+    		, board_id
+    		, reg_user_id
+    	)VALUES(
+    		#{origin_name}
+    		, #{save_path}
+    		, #{board_id}
+    		, #{reg_user_id}
+    		
+    	)
+    </insert>
+    
+    <delete id="fileDelete" parameterType="String">
+    	DELETE FROM sc_tb_file
+        WHERE id = #{id}
+    </delete>
+</mapper>

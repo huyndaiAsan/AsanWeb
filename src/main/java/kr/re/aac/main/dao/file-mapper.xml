@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FileDao">
+
+    <select id="selectList" parameterType="int" resultType="kr.re.aac.admin.dto.FileDto">
+        SELECT
+            id,
+            origin_name originName,
+            save_path savePath,
+            size,
+            download_count downloadCount,
+            reg_user_id regUserId,
+            board_id boardId
+        FROM sc_tb_file
+        where board_id = #{boardId}
+          and save_path like '%upload/%' 
+    </select>
+    
+</mapper>

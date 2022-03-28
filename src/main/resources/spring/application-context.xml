@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+       <!-- <util:properties id="db" location="classpath:datasource/jdbc-${environment}.properties" /> -->
+       <util:properties id="db" location="classpath:datasource/jdbc-local.properties" />
+
+       <bean id="mssql" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+              <property name="driverClassName" value="#{db['mssql.jdbc.driverClassName']}"/>
+              <property name="url" value="#{db['mssql.jdbc.url']}"/>
+              <property name="username" value="#{db['mssql.jdbc.username']}"/>
+              <property name="password" value="#{db['mssql.jdbc.password']}"/>
+       </bean>
+
+       <bean id="mssqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <property name="dataSource" ref="mssql" />
+              <property name="mapperLocations" value="classpath*:kr/re/aac/**/*mapper.xml" />
+       </bean>
+
+
+       <bean id="mssqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+              <constructor-arg name="sqlSessionFactory" ref="mssqlSessionFactory" />
+       </bean>
+
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource" ref="mssql" />
+       </bean>
+
+       <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+              <property name="host" value="smtp.gmail.com"/>
+              <property name="port" value="25"/>
+              <property name="username" value="dkrakdnjfem@gmail.com"/>
+              <property name="password" value="mk037301"/>
+              <property name="javaMailProperties">
+                     <props>
+                            <prop key="mail.transport.protocol">smtp</prop>
+                            <prop key="mail.smtp.auth">true</prop>
+                            <prop key="mail.smtp.starttls.enable">true</prop>
+                            <prop key="mail.debug">true</prop>
+                     </props>
+              </property>
+       </bean>
+
+       <context:annotation-config />
+       <aop:aspectj-autoproxy proxy-target-class="true"/>
+       <tx:annotation-driven proxy-target-class="true"/>
+
+       <context:component-scan base-package="kr.re.aac">
+              <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+       </context:component-scan>
+		
+		<bean id="ftpUpload" class="kr.re.aac.common.ftp.FtpUpload">
+			<property name="ip" value="127.0.0.1" />
+			<property name="port" value="21" />
+			<property name="id" value="root" />
+			<property name="password" value="1111" />
+		</bean>	
+		<bean id="webFileUtil" class="kr.re.aac.common.WebFileUtil">
+			<property name="imagePath" value="/upload" />
+			<property name="uploadPath" value="D:/01_dev/49_hyundaiAsan/01_workspace/huyndaiAsan/web/upload" />
+			<property name="downloadPath" value="D:/01_dev/49_hyundaiAsan/01_workspace/huyndaiAsan/web/upload" />
+		</bean>
+</beans>

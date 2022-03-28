@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/test/java=UTF-8
+encoding//src/test/resources=UTF-8
+encoding//web/WEB-INF/jsp/common/incMerchant.jsp=UTF-8
+encoding//web/WEB-INF/jsp/main/about/about_0901.jsp=UTF-8
+encoding//web/resources/js/daumeditor/js/editor_loader.js=UTF-8
+encoding//web/resources/js/daumeditor/js/trex/attachbox/filecapacity.js=UTF-8
+encoding//web/resources/js/daumeditor/js/trex/editor.js=UTF-8
+separateDerivedEncodings=true

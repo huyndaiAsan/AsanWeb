@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.re.aac.scadmin.dao.ScAdminManagerDao">
+	
+	<sql id="getSearch">
+		
+	</sql>
+	
+    <update id="update" parameterType="hashmap">
+        UPDATE 
+        	sc_tb_manager 
+        SET
+        	PWD = #{nPwd}
+        where ID = #{id}
+        	and PWD = #{pwd}
+    </update>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardDao">
+	
+	<sql id="allColumn">
+        b.id
+        , b.title
+        , b.content
+        , b.reg_date regDate
+        , b.update_date updateDate
+        , b.end_date endDate
+        , b.exposure
+        , b.read_count readCount
+        , b.category
+        , b.reg_user_id regUserId
+        , b.default_image defaultImage 
+        , b.stdt 
+        , b.endt
+        , b.ordering
+        , b.summary
+        , b.gubun
+        , b.complite
+        , b.top_mark
+    </sql>
+    
+	<sql id="getSearch">
+		<if test='searchKeyword != null and searchKeyword !="" '>
+			<if test='searchOption == "1" '>
+				AND title like '%' + #{searchKeyword} + '%'
+			</if>
+		</if>
+		
+		<if test='category == "construct" '>
+			AND gubun = #{gubun}
+		</if>
+	</sql>
+	
+    <select id="selectTotalCount" parameterType="map" resultType="int">
+        SELECT 
+        	count(*) 
+        FROM 
+        	sc_tb_board b
+        <where>
+			AND category = #{category}
+        	AND deleted = 'n'
+			<include refid="getSearch"/>
+        </where>
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT T.* FROM (SELECT ROWNUM RNUM, A.* FROM (  /* ProgramID=boardMapper.selectPaging */
+			SELECT 
+				row_number() over (ORDER BY reg_Date DESC) ROWNUM
+				, <include refid="allColumn" />
+		        , (select top 1 save_path from sc_tb_file where board_id = b.id ) imgFile
+			FROM sc_tb_board b
+		<where>
+			AND category = #{category}
+	        AND deleted = 'n'
+	        AND top_mark ='N'
+	        <include refid="getSearch"/>
+		</where>        
+
+		) A 
+		WHERE ROWNUM &lt; ((#{pageNo}-1) * #{pageUnit}) + #{pageUnit} + 1) T WHERE RNUM &gt;= ((#{pageNo}-1) * #{pageUnit}) + 1
+    </select>
+    
+    <select id="selectTopMarkList" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT T.* FROM (SELECT ROWNUM RNUM, A.* FROM (  /* ProgramID=boardMapper.selectPaging */
+			SELECT 
+				row_number() over (ORDER BY reg_Date DESC) ROWNUM
+				, <include refid="allColumn" />
+		        , (select top 1 save_path from sc_tb_file where board_id = b.id ) imgFile
+			FROM sc_tb_board b
+			WHERE 1=1
+			AND category = 'recruit'
+	        AND deleted = 'n'
+	        AND top_mark ='Y'
+		) A
+		)T
+		WHERE RNUM &lt;=3
+    </select>
+    
+    <select id="selectOne" parameterType="int" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT
+        <include refid="allColumn" />
+        FROM sc_tb_board b
+        WHERE b.id = #{value}
+          AND deleted = 'n'
+    </select>
+
+    <select id="selectNextOne" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT
+        TOP 1 
+        <include refid="allColumn" />
+        FROM sc_tb_board b
+        WHERE b.id <![CDATA[ < ]]> #{id}
+        and category = #{category}
+        AND deleted = 'n'
+        <include refid="getSearch"/>
+        order by id desc
+    </select>
+
+    <select id="selectPreOne" parameterType="map" resultType="kr.re.aac.admin.dto.BoardDto">
+        SELECT
+        TOP 1 
+        <include refid="allColumn" />
+        FROM sc_tb_board b
+        WHERE b.id <![CDATA[ > ]]> #{id}
+        and category = #{category}
+        AND deleted = 'n'
+        <include refid="getSearch"/>
+    </select>
+
+    <update id="updateIncreaseRead" parameterType="int">
+        UPDATE sc_tb_board SET
+        read_count = read_count + 1
+        where id = #{value}
+    </update>
+</mapper>
