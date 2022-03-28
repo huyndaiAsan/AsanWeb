@@ -1,0 +1,276 @@
+@charset 'UTF-8';
+
+/* promotion */
+.promotion .container .visual {
+    background-image: url(../images/promotion/bg_visual.jpg);
+}
+
+/* promotion03 */
+.promotion .news-board-view .news-button-wrap {
+    margin-top: 0;
+    text-align: left;
+}
+.promotion .news-board-view .news-button-wrap .button01-small {
+    position: relative;
+    padding-right: 33px;
+}
+.promotion .news-board-view .news-button-wrap .button01-small:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 9px;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    background: url(../images/promotion/bg_promotion_03-icon-pc.png)no-repeat;
+}
+
+/* 역사관 */
+.history-gallery {
+    padding: 0;
+    background: #1c1c1c;
+}
+.history-gallery .gallery {
+    margin-top: 0;
+}
+.history-gallery .gallery-view {
+    width: 100%;
+    min-height: 960px;
+}
+
+.history-gallery .gallery-view img {
+    width: 100%;
+}
+.history-gallery .gallery .owl-carousel .owl-nav button {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    background-image: url(../images/common/spr_common.png);
+    background-repeat: no-repeat;
+}
+.history-gallery .gallery .owl-carousel .owl-nav .owl-prev {
+    left: 0;
+    background-position: 0 -86px;
+}
+.history-gallery .gallery .owl-carousel .owl-nav .owl-prev.disabled {
+    background-position: 0 -151px;
+}
+.history-gallery .gallery .owl-carousel .owl-nav .owl-next {
+    right: 0;
+    background-position: -65px -86px;
+}
+.history-gallery .gallery .owl-carousel .owl-nav .owl-next.disabled {
+    background-position: -65px -151px;
+}
+.history-gallery .gallery picture p {
+    display: block;
+    position: absolute;
+    bottom: 90px;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+}
+.history-gallery .gallery picture p em {
+    display: inline-block;
+    position: relative;
+    bottom: -140px;
+    width: 100%;
+    font-size: 30px;
+    -webkit-transition: bottom .4s, opacity .3s;
+    transition: bottom .4s, opacity .3s;
+    transition-delay: 1s;
+    transition-timing-function: ease-out;
+    opacity: 0;
+}
+.history-gallery .gallery picture p strong {
+    display: inline-block;
+    position: relative;
+    bottom: -140px;
+    width: 100%;
+    padding: 0 50px;
+    font-size: 65px;
+    -webkit-transition: bottom .4s, opacity .3s;
+    transition: bottom .4s, opacity .3s;
+    transition-delay: 1.2s;
+    transition-timing-function: ease-out;
+    opacity: 0;
+}
+.history-gallery .gallery picture p span {
+    display: inline-block;
+    position: relative;
+    bottom: -140px;
+    width: 90%;
+    max-width: 1040px;
+    font-size: 18px;
+    line-height: 28px;
+    -webkit-transition: bottom .5s, opacity .3s;
+    transition: bottom .5s, opacity .3s;
+    transition-delay: 1.3s;
+    transition-timing-function: ease-out;
+    opacity: 0;
+}
+.history-gallery .gallery .active picture p em,
+.history-gallery .gallery .active picture p strong,
+.history-gallery .gallery .active picture p span {
+    bottom: 0;
+    opacity: 1;
+}
+.history-spot {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    z-index: 1;
+    width: 1000px;
+    margin-left: -500px;
+    text-align: center;;
+}
+.history-spot:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 9px;
+    left: 6%;
+    width: 88%;
+    border-top: 1px solid #fff;
+    opacity: .5;
+}
+.history-spot button {
+    width: 90px;
+    margin: 0 100px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+}
+.history-spot button:first-child {
+    margin-left: 0;
+}
+.history-spot button:last-child {
+    margin-right: 0;
+}
+.history-spot button:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../images/promotion/spot-off.png) no-repeat 0 0;
+}
+.history-spot button span {
+    display: inline-block;
+    width: 100%;
+    opacity: .5;
+}
+.history-spot button.active:before {
+    background: url(../images/promotion/spot-on.png) no-repeat 0 0;
+}
+.history-spot button.active span {
+    opacity: 1;
+}
+
+@media all and (max-width:1236px) {
+    .history-gallery .gallery picture p {
+        bottom: 60px;
+    }
+    .history-gallery .gallery picture p em {
+        display: inline-block;
+        width: 100%;
+        font-size: 15px;
+    }
+    .history-gallery .gallery picture p strong {
+        display: inline-block;
+        width: 100%;
+        padding: 0 25px;
+        font-size: 24px;
+    }
+    .history-gallery .gallery picture p span {
+        display: inline-block;
+        width: 90%;
+        max-width: 1040px;
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 17px;
+    }
+    .history-spot {
+        display: flex;
+        position: absolute;
+        bottom: 20px;
+        left: 5%;
+        z-index: 1;
+        justify-content: space-between;
+        width: 90%;
+        margin-left: 0;
+        text-align: center;
+    }
+    .history-spot:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 9px;
+        left: 2%;
+        width: 96%;
+        border-top: 1px solid #fff;
+        opacity: .5;
+    }
+    .history-spot button {
+        flex: 0;
+        width: 20px;
+        margin: 0;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+    }
+    .history-spot button:first-child {
+        margin-left: 0;
+    }
+    .history-spot button:last-child {
+        margin-right: 0;
+    }
+    .history-spot button:before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url(../images/promotion/spot-off.png) no-repeat 0 0;
+    }
+    .history-spot button span {
+        display: none;
+    }
+    .history-spot button.active:before {
+        background: url(../images/promotion/spot-on.png) no-repeat 0 0;
+    }
+    .history-spot button.active span {
+        opacity: 1;
+    }
+}
+
+
+/* 역사관 */
+
+
+@media all and (max-width:1236px) {
+    .promotion .news-board-view .board-table-view__con {
+        margin-top: 0;
+    }
+    .promotion .news-board-view .news-button-wrap {
+        text-align: right;
+    }
+    .promotion .news-board-view .news-button-wrap .button01-small {
+        padding-right: 22px;
+    }
+    .promotion .news-board-view .news-button-wrap .button01-small:before {
+        right: 6px;
+        width: 11px;
+        height: 11px;
+        margin-top: -5px;
+        background: url(../images/promotion/bg_promotion_03-icon-mobile.png)no-repeat;
+    }
+}
+@media all and (max-width:370px) {
+    .promotion .news-board-view .board-table-view__info  div p + p {
+        position: relative;
+        margin-left: 21px;
+    }
+}

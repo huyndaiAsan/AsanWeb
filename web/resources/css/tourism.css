@@ -1,0 +1,721 @@
+@charset 'UTF-8';
+
+.tab.col06 a {
+    width: 16.6%;
+}
+p.list-dot,
+.list-dot li {
+    margin-left: 10px;
+    text-indent: -10px;
+}
+p.list-dot:before,
+.list-dot li:before {
+    content: '·';
+    display: inline-block;
+    width: 10px;
+    text-indent: 0;
+}
+
+/* tourism */
+.tourism .container .visual {
+    background-image: url(../images/tourism/bg_visual.jpg);
+}
+
+.tourism .heading h5 {
+    margin-top: 100px;
+    margin-bottom: 60px;
+    color: #000;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1;
+}
+.tourism .heading h5 + em {
+    margin-top: 0;
+    color: #000;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: normal;
+    word-break: keep-all;
+}
+.tourism .heading h5 + p {
+    word-break: keep-all;
+}
+
+
+.tourism-info-vs {
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+}
+.type-geumgang .tourism-info-vs {
+    background-image: url(../images/tourism/tourism_vs01.jpg);
+}
+.type-gaesung .tourism-info-vs {
+    background-image: url(../images/tourism/tourism_vs02.jpg);
+}
+.type-baekdu .tourism-info-vs {
+    background-image: url(../images/tourism/tourism_vs03.jpg);
+}
+.type-pyongyang .tourism-info-vs {
+    background-image: url(../images/tourism/tourism_vs04.jpg);
+}
+.type-myohyang .tourism-info-vs {
+    background-image: url(../images/tourism/tourism_vs06.jpg);
+}
+.type-chilbo .tourism-info-vs {
+    background-image: url(../images/tourism/tourism_vs07.jpg);
+}
+
+.tourism-info-tit {
+    display: block;
+    width: 100%;
+    color: #000;
+    font-size: 36px;
+    font-weight: 400;
+    text-align: center;
+}
+.tourism-info-dec {
+    width: 100%;
+    margin-top: 47px;
+}
+.tourism-info-dec strong {
+    display: block;
+    margin-bottom: 14px;
+    color: #000;
+    font-size: 24px;
+    font-weight: 500;
+}
+.tourism-info-dec p {
+    color: #666;
+    font-size: 16px;
+    font-weight: 300;
+    word-break: keep-all;
+    line-height: 28px;
+}
+.tourism-info-vs {
+    width: 100%;
+    height: 600px;
+    margin-top: 75px;
+}
+.tourism-info-list {
+    width: 100%;
+}
+.tourism-info-list dl {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 74px;
+}
+.tourism-info-list dt {
+    float: left;
+    width: 280px;
+}
+.tourism-info-list dt strong {
+    display: block;
+    color: #000;
+    font-size: 24px;
+    font-weight: 400;
+}
+.tourism-info-list dd {
+    float: right;
+    width: 894px;
+}
+.tourism-info-list dd p {
+    color: #666;
+    font-size: 16px;
+    font-weight: 300;
+    word-break: keep-all;
+    line-height: 28px;
+}
+.tourism-info-list dd p + p {
+    margin-top: 35px;
+}
+
+.tourism-place {
+    overflow: hidden;
+    width: 100%;
+}
+.tourism-place > li {
+    float: left;
+    width: 384px;
+    margin-right: 24px;
+    margin-bottom: 60px;
+}
+.tourism-place > li:nth-child(3n) {
+    margin-right: 0;
+}
+.tourism-place > li:nth-child(3n + 1) {
+    clear: left;
+}
+.tourism-place figure {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+.tourism-place figure img {
+    display: block;
+    width: 100%;
+}
+.tourism-place figure figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    background: rgba(0,0,0,.5);;
+}
+.tourism-place p {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 16px;
+    color: #666;
+    font-size: 16px;
+    text-align: justify;
+    line-height: 28px;
+}
+
+
+.tourism-gallery .gallery-view {
+    width: 100%;
+    height: 550px;
+}
+.tourism-gallery .gallery-list ul li {
+    vertical-align: top;
+    background-image: none;
+}
+.tourism-gallery .gallery-list ul li p {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+.gallery-view__desc p br {
+    display: none;
+}
+
+.list-table {
+    overflow: hidden;
+    width: 100%;
+    border-top: 2px solid #000;
+}
+.list-table > li {
+    display: table-row;
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #e2e2e2;
+}
+.list-table > li strong {
+    display: table-cell;
+    vertical-align: middle;
+    width: 180px;
+    height: 60px;
+    padding: 10px 40px;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    background: #f8f8f8;;
+}
+.list-table > li p {
+    display: table-cell;
+    vertical-align: middle;
+    width: auto;
+    height: 60px;
+    padding: 10px 40px;
+    font-weight: 300;
+}
+
+.type-inoutside .swiper-wrapper {
+    justify-content: center;
+}
+.type-inoutside .type-mice .heading h4 em {
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 400;
+}
+.type-inoutside .type-cruise {
+    display: inline-block;
+    width: 100%;
+    min-height: 557px;
+    margin-top: 100px;
+    background: url(../images/tourism/tourism_cruise.jpg) no-repeat 50% 0;
+    background-size: cover;
+}
+.type-inoutside .type-travel {
+    display: inline-block;
+    width: 100%;
+    min-height: 557px;
+    margin-top: 100px;
+    background: url(../images/tourism/tourism_travel.jpg) no-repeat 50% 0;
+    background-size: cover;
+}
+.type-inoutside .type-mice {
+    display: inline-block;
+    width: 100%;
+    min-height: 745px;
+    margin-top: 100px;
+    background: url(../images/tourism/tourism_mice.jpg) no-repeat 50% 0;
+    background-size: cover;
+}
+
+.type-inoutside [class^='ico-'] li {
+    float: left;
+    position: relative;
+    width: 50%;
+    min-height: 120px;
+    margin-bottom: 30px;
+}
+.type-inoutside [class^='ico-'] li:nth-child(2n + 1) {
+    clear: left;
+}
+.type-inoutside [class^='ico-'] li > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+.type-inoutside [class^='ico-'] li:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 110px;
+    height: 110px;
+    margin-right: 30px;
+    background-image: url(../images/tourism/ico_tourism.png);
+}
+.type-inoutside [class^='ico-'] li strong {
+    display: block;
+    margin-bottom: 7px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.ico-cruise li:nth-child(1):before {
+    background-position: 0 0;
+}
+.ico-cruise li:nth-child(2):before {
+    background-position: -120px 0;
+}
+.ico-cruise li:nth-child(3):before {
+    background-position: -240px 0;
+}
+.ico-cruise li:nth-child(4):before {
+    background-position: -360px 0;
+}
+
+.ico-travel li:nth-child(1):before {
+    background-position: 0 -120px;
+}
+.ico-travel li:nth-child(2):before {
+    background-position: -120px -120px;
+}
+.ico-travel li:nth-child(3):before {
+    background-position: -240px -120px;
+}
+.ico-travel li:nth-child(4):before {
+    background-position: -360px -120px;
+}
+
+.ico-mice li:nth-child(1):before {
+    background-position: 0 -240px;
+}
+.ico-mice li:nth-child(2):before {
+    background-position: -120px -240px;
+}
+.ico-mice li:nth-child(3):before {
+    background-position: -240px -240px;
+}
+.ico-mice li:nth-child(4):before {
+    background-position: -360px -240px;
+}
+.ico-mice li:nth-child(5):before {
+    background-position: 0 -360px;
+}
+.ico-mice li:nth-child(6):before {
+    background-position: -120px -360px;
+}
+
+
+.type-inoutside .table01 table {
+    /* border-top:0; */
+}
+.type-inoutside .table01 table th,
+.type-inoutside .table01 table td {
+    padding: 24px 40px;
+    /* border-bottom:0; */
+    font-weight: 400;
+}
+.type-inoutside .table01 table td {
+    border-left: 1px solid #e5e5e5;
+}
+
+.type-inoutside .table01 table td b {
+    font-weight: 400;
+}
+.type-inoutside .table01 tbody th[scope='rowgroup'] {
+    border-right: 1px solid #e5e5e5;
+}
+.type-inoutside .tab {
+    margin-top: 0;
+}
+
+
+/* mobile ------------------------------------------------------------------------------------------ */
+@media all and (max-width:1236px) {
+    .tourism .button01 {
+        width: 100%;
+    }
+    .tourism .heading h5 {
+        margin-top: 50px;
+        margin-bottom: 30px;
+        font-size: 19px;
+    }
+    .tourism .heading h5 + em {
+        font-size: 15px;
+    }
+    .tourism .heading h5 + p {
+        font-size: 13px;
+    }
+
+    .tourism-info-vs {
+        background-size: cover;
+    }
+    /* .type-geumgang .tourism-info-vs {
+        background-image: url(../images/tourism/tourism_vs01.jpg);
+    }
+    .type-gaesung .tourism-info-vs {
+        background-image:url(../images/tourism/tourism_vs02.jpg);
+    }
+    .type-baekdu .tourism-info-vs {
+        background-image: url(../images/tourism/tourism_vs03.jpg);
+    } */
+
+    .tourism-info-tit {
+        font-size: 23px;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .tourism-info-dec {
+        margin-top: 20px;
+    }
+    .tourism-info-dec strong {
+        display: block;
+        margin-bottom: 14px;
+        font-size: 17px;
+        line-height: 25px;
+    }
+    .tourism-info-dec p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+    .tourism-info-list dd p + p {
+        margin-top: 25px;
+    }
+    .tourism-info-vs {
+        height: 380px;
+        margin-top: 40px;
+    }
+
+    .tourism-info-list {
+        width: 100%;
+    }
+    .tourism-info-list dl {
+        overflow: hidden;
+        width: 100%;
+        margin-top: 35px;
+    }
+    .tourism-info-list dt {
+        float: left;
+        width: 100%;
+    }
+    .tourism-info-list dt strong {
+        margin-bottom: 7px;
+        font-size: 17px;
+        font-weight: 500;
+    }
+    .tourism-info-list dd {
+        float: left;
+        width: 100%;
+    }
+    .tourism-info-list dd p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+    .tourism-place > li {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+    .tourism-place figure figcaption {
+        height: 35px;
+        padding: 8px 0;
+        color: #fff;
+        font-size: 14px;
+        background: rgba(0,0,0,.7);;
+    }
+    .tourism-place p {
+        margin-top: 10px;
+        font-size: 14px;
+        text-align: left;
+        line-height: 20px;
+    }
+
+    .tourism-gallery .gallery-view {
+        width: 100%;
+        height: 0;
+        padding-top: 45.84%; /* 66.55% 디자인 */
+    }
+    .tourism-gallery .gallery-list ul li {
+        vertical-align: top;
+        background-image: none;
+    }
+    .tourism-gallery .gallery-list ul li p {
+        width: 100%;
+        margin-top: 10px;
+        font-size: 14px;
+        text-align: center;
+    }
+    .gallery-view__desc p br {
+        display: none;
+    }
+
+    .list-table {
+        overflow: hidden;
+        width: 100%;
+    }
+    .list-table > li {
+        display: block;
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid #e2e2e2;
+    }
+    .list-table > li strong {
+        display: block;
+        width: 100%;
+        height: 44px;
+        padding: 15px;
+        font-size: 14px;
+        font-weight: 500;
+        background: #f8f8f8;;
+    }
+    .list-table > li p {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        font-weight: 400;
+    }
+
+    .type-inoutside .swiper-wrapper {
+        justify-content: space-between;
+    }
+    .type-inoutside .type-mice .heading h4 em {
+        margin-top: 13px;
+        font-size: 13px;
+        line-height: 19px;
+    }
+    .type-inoutside .type-cruise:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 47px;
+        left: 15px;
+        width: 100%;
+        height: 47px;
+        background: url(../images/tourism/bg_cruise.png) no-repeat 0 0;
+        background-size: contain;
+    }
+    .type-inoutside .type-travel:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 47px;
+        left: 15px;
+        width: 100%;
+        height: 47px;
+        background: url(../images/tourism/bg_travel.png) no-repeat 0 0;
+        background-size: contain;
+    }
+    .type-inoutside .type-mice:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 47px;
+        left: 15px;
+        width: 100%;
+        height: 47px;
+        background: url(../images/tourism/bg_mice.png) no-repeat 0 0;
+        background-size: contain;
+    }
+    .type-inoutside .type-cruise {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        min-height: 0;
+        margin-top: 50px;
+        background: #f7f7f7 url(../images/tourism/tourism_cruise_m.jpg) no-repeat 100% 0;
+        background-size: contain;
+    }
+    .type-inoutside .type-travel {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        min-height: 0;
+        margin-top: 50px;
+        background: #f7f7f7 url(../images/tourism/tourism_travel_m.jpg) no-repeat 100% 0;
+        background-size: contain;
+    }
+    .type-inoutside .type-mice {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        min-height: 0;
+        margin-top: 50px;
+        background: #f7f7f7 url(../images/tourism/tourism_mice_m.jpg) no-repeat 100% 0;
+        background-size: contain;
+    }
+    .type-inoutside [class^='ico-'] {
+        overflow: hidden;
+        margin-bottom: 25px;
+    }
+    .type-inoutside [class^='ico-'] li {
+        float: left;
+        position: relative;
+        width: 50%;
+        min-height: 0;
+        margin-bottom: 25px;
+        padding: 0 20px;
+        text-align: center;
+    }
+    .type-inoutside [class^='ico-'] li:nth-child(2n + 1) {
+        clear: left;
+    }
+    .type-inoutside [class^='ico-'] li > div {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .type-inoutside [class^='ico-'] li:before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        width: 62px;
+        height: 62px;
+        margin-right: 0;
+        background-image: url(../images/tourism/ico_tourism_m.png);
+        background-size: 260px 260px;
+    }
+    .type-inoutside [class^='ico-'] li strong {
+        display: block;
+        width: 100%;
+        margin-bottom: 7px;
+        color: #000;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .type-inoutside [class^='ico-'] li p {
+        display: none;
+    }
+
+    .ico-cruise li:nth-child(1):before {
+        background-position: 0 0;
+    }
+    .ico-cruise li:nth-child(2):before {
+        background-position: -65px 0;
+    }
+    .ico-cruise li:nth-child(3):before {
+        background-position: -130px 0;
+    }
+    .ico-cruise li:nth-child(4):before {
+        background-position: -195px 0;
+    }
+
+    .ico-travel li:nth-child(1):before {
+        background-position: 0 -65px;
+    }
+    .ico-travel li:nth-child(2):before {
+        background-position: -65px -65px;
+    }
+    .ico-travel li:nth-child(3):before {
+        background-position: -130px -65px;
+    }
+    .ico-travel li:nth-child(4):before {
+        background-position: -195px -65px;
+    }
+
+    .ico-mice li:nth-child(1):before {
+        background-position: 0 -130px;
+    }
+    .ico-mice li:nth-child(2):before {
+        background-position: -65px -130px;
+    }
+    .ico-mice li:nth-child(3):before {
+        background-position: -130px -130px;
+    }
+    .ico-mice li:nth-child(4):before {
+        background-position: -195px -130px;
+    }
+    .ico-mice li:nth-child(5):before {
+        background-position: 0 -195px;
+    }
+    .ico-mice li:nth-child(6):before {
+        background-position: -65px -195px;
+    }
+
+    .type-inoutside .table01 table thead {
+        display: none;
+    }
+    .type-inoutside .table01 table,
+    .type-inoutside .table01 table tbody,
+    .type-inoutside .table01 table tr {
+        display: block;
+        width: 100%;
+    }
+    .type-inoutside .table01 table tr {
+        border-bottom: 1px solid #e2e2e2;
+    }
+    .type-inoutside .table01 table th,
+    .type-inoutside .table01 table td {
+        display: block;
+        width: 100%;
+        padding: 13px;
+        border-left: 0 !important;
+        font-size: 14px;
+        text-align: left;
+    }
+    .type-inoutside .table01 table td {
+        border: 0;
+    }
+    .type-inoutside .table01 table td + td {
+        padding-top: 0;
+    }
+    .type-inoutside .table01 table td b {
+        color: #000;
+    }
+    .type-inoutside .table01 table th {
+        border-bottom: 1px solid #e2e2e2;
+        font-weight: 500;
+        background: #f8f8f8;
+    }
+    .type-inoutside .table01 tbody th[scope='rowgroup'] {
+        border-right: 1px solid #e5e5e5;
+    }
+    .type-inoutside .tab {
+        margin-top: 0;
+    }
+    .tab-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .tab-scroll .tab.col06 {
+        min-width: 700px;
+    }
+}

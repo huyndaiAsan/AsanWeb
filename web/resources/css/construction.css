@@ -1,0 +1,64 @@
+@charset 'UTF-8';
+
+/* construction */
+.construction .container .visual {
+    background-image: url(../images/construction/bg_visual.jpg);
+}
+
+.construction .heading + .image-board {
+    margin-top: 80px;
+}
+@media all and (max-width:1236px) {
+    .construction .heading + .image-board {
+        margin-top: 40px;
+    }
+}
+
+/* 목록 */
+.construction .gallery + .image-board {
+    margin-top: 100px;
+}
+.construction .image-board i {
+    position: absolute;
+    z-index: 1;
+    width: 78px;
+    color: #fff;
+    font-size: 14px;
+    font-style: normal;
+    text-align: center;
+    line-height: 40px;
+}
+.construction .image-board i.state01 {
+    background-color: #2ea65a;
+}
+.construction .image-board i.state02 {
+    background-color: #141415;
+}
+@media all and (max-width:1236px) {
+    .construction .gallery + .image-board {
+        margin-top: 50px;
+    }
+    .construction .image-board i {
+        width: 50px;
+        font-size: 11px;
+        line-height: 22px;
+    }
+}
+
+/* 상세 */
+.construction .text-wrap {
+    padding: 60px 0;
+    border-bottom: 1px solid #ddd;
+}
+.construction .text-wrap p + p {
+    margin-top: 15px;
+}
+@media all and (max-width:1236px) {
+    .construction .text-wrap {
+        padding: 30px 0;
+        font-size: 14px;
+    }
+    .construction .text-wrap p + p {
+        margin-top: 10px;
+    }
+}

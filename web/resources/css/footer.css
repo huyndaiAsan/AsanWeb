@@ -1,0 +1,88 @@
+/* footer */
+.footer-link .container .visual
+{
+    background-image: url(../images/footer/bg_visual.jpg);
+}
+
+
+.footer-link .drop-down-menu > div{
+  position:relative;
+  width:250px;
+  float:right;
+  font-size:14px;
+}
+.footer-link .drop-down-menu button{
+  width:100%;
+  position:relative;
+  border:1px solid #e5e5e5;
+  padding:0 32px 0 18px;
+  line-height: 40px;
+  text-align: left;
+}
+.footer-link .drop-down-menu button:after{
+  position: absolute;
+  top: 50%;
+  right: 19px;
+  width: 10px;
+  height: 5px;
+  margin-top: -2px;
+  content: '';
+  background: url(../images/layout/spr_layout.png)no-repeat -21px -46px;
+}
+.footer-link .drop-down-menu ul{
+  width:100%;
+  position:absolute;
+  background-color:#fff;
+  right:0;
+  line-height: 40px;
+  border:1px solid #e2e2e2;
+  border-top:none;
+}
+.footer-link .drop-down-menu ul li + li{
+  border-top:1px solid #e2e2e2;
+}
+.footer-link .drop-down-menu ul li a{
+  display:block;
+  padding:0 32px 0 18px;
+}
+.footer-link .drop-down-menu ul li a:hover,
+.footer-link .drop-down-menu ul li a:focus{
+  background-color: #25a449;
+  color:#fff;
+}
+
+.footer-link h4{
+  font-size: 22px;
+  text-align:center;
+  color:#000;
+  margin:55px 0 25px;
+}
+.footer-link strong{
+  font-size:22px;
+  color:#000;
+}
+.footer-link p + strong{
+  display:block;
+  margin-top:90px;
+}
+.footer-link p{
+  line-height:1.6;
+}
+.footer-link p + p,
+.footer-link strong + p
+{
+  margin-top:30px;
+}
+.footer-link .footer-table{
+  width:100%;
+  border-top:2px solid #000;
+  table-layout: fixed;
+}
+.footer-link .footer-table th,
+.footer-link .footer-table td{
+  padding:20px 35px;
+}
+.footer-link .footer-table th{
+  background-color:#f8f8f8;
+  color:#000;
+}

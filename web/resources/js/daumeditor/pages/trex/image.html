@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="../../js/popup.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/resources/js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/resources/js/json.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <link rel="stylesheet" href="../../css/popup.css" type="text/css" />
+</head>
+<body onload="initUploader();">
+<div class="wrapper">
+    <div class="header">
+        <h1>Photo Add.</h1>
+    </div>
+    <div class="body">
+        <form id="uploadForm" action="/editImage" enctype="multipart/form-data" target="uploadIFrame" method="post">
+            <input type="file" id="fileId" name="file" accept="image/*"/>
+            <input type="submit" value="Upload.."/>
+        </form>
+        <iframe id="uploadIFrame" name="uploadIFrame" style="display:none;visibility:hidden"></iframe>
+    </div>
+    <div id="preView" style="margin-top: 10px; text-align: center;"></div>
+    <div class="footer" style="margin-top: 10px;">
+        <p><a href="#" onclick="closeWindow();" title="닫기" class="close">닫기</a></p>
+        <ul>
+            <li class="submit"><a href="#" onclick="done();" title="등록" class="btnlink">등록</a></li>
+            <li class="cancel"><a href="#" onclick="closeWindow();" title="취소" class="btnlink">취소</a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var edUploadImgUrl = "";
+    var edUploadFileName = "";
+    var edUploadFileSize = "";
+    var maxWidth = "";
+
+    document.getElementById("uploadForm").onsubmit = function () {
+        document.getElementById("uploadForm").target = "uploadIFrame";
+    };
+    document.getElementById("uploadIFrame").onload = function () {
+        var resultText = frames["uploadIFrame"].document.body.innerHTML;
+        var start = resultText.indexOf('{"');
+        var end = resultText.indexOf('"}') + 2;
+        var result = resultText.substring(start, end);
+
+        var obj = JSON.parse(result)
+        if (obj.result === 'success') {
+            edUploadImgUrl = obj.imageUrl;
+            edUploadFileName = obj.name;
+            edUploadFileSize = obj.size;
+            maxWidth = obj.maxWidth;
+        }
+        if(maxWidth == 'y') {
+            document.getElementById("preView").innerHTML = '<img src="' + edUploadImgUrl + '" class="txc-image" width="700" />';
+        } else {
+            document.getElementById("preView").innerHTML = '<img src="' + edUploadImgUrl + '" class="txc-image" />';
+        }
+    };
+
+    function done() {
+        if (typeof(execAttach) == 'undefined') { //Virtual Function
+            return;
+        }
+
+        var _mockdata = {
+            'imageurl': edUploadImgUrl,
+            'filename': edUploadFileName,
+            'filesize': edUploadFileSize,
+            'imagealign': 'C',
+            'originalurl': edUploadImgUrl,
+            'thumburl': edUploadImgUrl,
+            'maxWidth' : maxWidth
+        };
+        execAttach(_mockdata);
+        closeWindow();
+    }
+
+    function initUploader() {
+        var _opener = PopupUtil.getOpener();
+        if (!_opener) {
+            alert('잘못된 경로로 접근하셨습니다.');
+            return;
+        }
+
+        var _attacher = getAttacher('image', _opener);
+        registerAction(_attacher);
+    }
+
+</script>
+</body>
+</html>
