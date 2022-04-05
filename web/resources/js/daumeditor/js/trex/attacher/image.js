@@ -207,7 +207,7 @@ Trex.Attachment.Image = Trex.Class.create({
 	},
 	getDispHtml: function(data) {
         if(data.maxWidth == 'y') {
-            return "<img id=\"" + data.dispElId + "\" src=\"" + data.imageurl + "\" class=\"txc-image\" width=\"700\"/>";
+            return "<img id=\"" + data.dispElId + "\" src=\"" + data.imageurl + "\" class=\"txc-image\" width=\"900\"/>";
         } else {
             return "<img id=\"" + data.dispElId + "\" src=\"" + data.imageurl + "\" class=\"txc-image\"/>";
         }
